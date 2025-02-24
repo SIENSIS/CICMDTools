@@ -3,7 +3,7 @@
     "description": "CICMDTools ara a Codeigniter command tool collection to simplify CI4 develope task",
     "type": "library",
     "require": {
-        "ifsnop/mysqldump-php": "dev-master",
+        "ifsnop/mysqldump-php": "^2.12",
         "codeigniter4/framework": "dev-master"
     },
     "license": "MIT",
