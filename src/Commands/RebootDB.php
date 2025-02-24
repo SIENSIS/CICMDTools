@@ -12,14 +12,14 @@ class RebootDB extends BaseCommand
      *
      * @var string
      */
-    protected $group = 'Developer';
+    protected $group = 'Database';
 
     /**
      * The Command's Name
      *
      * @var string
      */
-    protected $name = 'rebootdb';
+    protected $name = 'db:reboot';
 
     /**
      * The Command's Description
@@ -33,7 +33,7 @@ class RebootDB extends BaseCommand
      *
      * @var string
      */
-    protected $usage = 'rebootdb';
+    protected $usage = 'db:reboot';
 
     /**
      * The Command's Arguments
