@@ -1,3 +1,3 @@
 # Install composer
 
-> composer require siensis/cicmdtools : "dev-main"
+> composer require siensis/cicmdtools @dev
