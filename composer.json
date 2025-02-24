@@ -1,0 +1,28 @@
+{
+    "name": "siensis/cicmdtools",
+    "description": "CICMDTools ara a Codeigniter command tool collection to simplify CI4 develope task",
+    "type": "library",
+    "require": {
+        "ifsnop/mysqldump-php": "dev-master",
+        "codeigniter4/framework": "dev-master"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "SIENSIS\\CICMDTools\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "JmFxR",
+            "email": "dev@siensis.com",
+            "homepage": "http://siensis.com",
+            "role": "Developer"        }
+    ],
+    "keywords": [
+        "codeigniter",
+        "tools"
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
