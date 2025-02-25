@@ -27,7 +27,7 @@ class GenerateModel extends BaseCommand
 {
     use GeneratorTrait;
 
-    protected $group = 'Dev';
+    protected $group = 'Developer';
 
     protected $name = 'generate:model';
 
