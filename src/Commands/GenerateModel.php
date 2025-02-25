@@ -97,7 +97,7 @@ class GenerateModel extends BaseCommand
 
         $overwrite = (bool)CLI::getOption('f');
 
-        $destination = $this->determineOutputPath('Models', $this->optionsList['namespace']).$name.'.php';
+        $destination = $this->determineOutputPath('Models', $this->optionsList['namespace']).ucfirst($name).'.php';
 
         try
         {
