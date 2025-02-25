@@ -85,7 +85,7 @@ class FileKit {
 
         if ($file_contents === false)
         {
-            throw new \RuntimeException( sprintf(lang('Vulcan.errorReadingFile'), $file));
+            throw new \RuntimeException( sprintf(lang('siensis.errorReadingFile'), $file));
         }
 
         $result = file_put_contents($file, $content . $file_contents);
@@ -118,7 +118,7 @@ class FileKit {
 
         if ($lines === false)
         {
-            throw new \RuntimeException( sprintf( lang('Vulcan.errorFileNotFound'), $file ));
+            throw new \RuntimeException( sprintf( lang('siensis.errorFileNotFound'), $file ));
         }
 
         // Where to insert the row.
@@ -156,7 +156,7 @@ class FileKit {
 
         if ($lines === false)
         {
-            throw new \RuntimeException( sprintf( lang('Vulcan.errorFileNotFound'), $file ) );
+            throw new \RuntimeException( sprintf( lang('siensis.errorFileNotFound'), $file ) );
         }
 
         // Where to insert the row.
@@ -194,7 +194,7 @@ class FileKit {
 
         if ($file_contents === false)
         {
-            throw new \RuntimeException( sprintf( lang('Vulcan.errorReadingFile'), $file ) );
+            throw new \RuntimeException( sprintf( lang('siensis.errorReadingFile'), $file ) );
         }
 
         $file_contents = str_replace($search, $replace, $file_contents);
@@ -220,7 +220,7 @@ class FileKit {
 
         if ($file_contents === false)
         {
-            throw new \RuntimeException( sprintf( lang('Vulcan.errorReadingFile'), $file ) );
+            throw new \RuntimeException( sprintf( lang('siensis.errorReadingFile'), $file ) );
         }
 
         $file_contents = preg_replace($pattern, $replace, $file_contents);

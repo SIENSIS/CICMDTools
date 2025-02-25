@@ -45,7 +45,7 @@ trait GeneratorTrait
         {
             if (! $overwrite)
             {
-                CLI::write(CLI::color("\t".strtolower(lang('Vulcan.exists')).": ", 'blue').str_replace(realpath($this->rootPath), '',
+                CLI::write(CLI::color("\t".strtolower(lang('siensis.exists')).": ", 'blue').str_replace(realpath($this->rootPath), '',
                         $path));
 
                 return true;
@@ -68,18 +68,18 @@ trait GeneratorTrait
 
         if (! write_file($path, $contents))
         {
-            throw new \RuntimeException(sprintf(lang('Vulcan.errorWritingFile'), $path));
+            throw new \RuntimeException(sprintf(lang('siensis.errorWritingFile'), $path));
         }
 
         chmod($path, $perms);
 
         if ($overwrite && $file_exists)
         {
-            CLI::write(CLI::color("\t".strtolower(lang('Vulcan.overwrote'))." ", 'light_red').str_replace(realpath($this->rootPath), '',
+            CLI::write(CLI::color("\t".strtolower(lang('siensis.overwrote'))." ", 'light_red').str_replace(realpath($this->rootPath), '',
                     $path));
         } else
         {
-            CLI::write(CLI::color("\t".strtolower(lang('Vulcan.created'))." ", 'yellow').str_replace(realpath($this->rootPath), '',
+            CLI::write(CLI::color("\t".strtolower(lang('siensis.created'))." ", 'yellow').str_replace(realpath($this->rootPath), '',
                     $path));
         }
 
@@ -107,7 +107,7 @@ trait GeneratorTrait
 
         if (! mkdir($path, $perms, true))
         {
-            throw new \RuntimeException(sprintf(lang('Vulcan.errorCreatingDir'), $path));
+            throw new \RuntimeException(sprintf(lang('siensis.errorCreatingDir'), $path));
         }
 
         return $this;
@@ -222,11 +222,11 @@ trait GeneratorTrait
 
         if ($success)
         {
-            CLI::write(CLI::color("\t".strtolower(lang('Vulcan.modified'))." ", 'cyan').str_replace(realpath($this->rootPath), '',
+            CLI::write(CLI::color("\t".strtolower(lang('siensis.modified'))." ", 'cyan').str_replace(realpath($this->rootPath), '',
                     $path));
         } else
         {
-            CLI::write(CLI::color("\t".strtolower(lang('Vulcan.error'))." ", 'light_red').str_replace(realpath($this->rootPath), '',
+            CLI::write(CLI::color("\t".strtolower(lang('siensis.error'))." ", 'light_red').str_replace(realpath($this->rootPath), '',
                     $path));
         }
 
