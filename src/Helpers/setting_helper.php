@@ -16,3 +16,17 @@ if (!function_exists('crypt_setting')) {
         }
     }
 }
+
+if (!function_exists('hash_setting')) {
+
+    function hash_setting($setting_name,$value=null)
+    {
+        if($value){   // if value is provided, crypt the value and save it to the setting
+            $encryption = config('encryption')
+            $hashValue =hash_hmac('sha512', $value, $encryption->key);
+            service('settings')->set($setting_name, $hashValue);
+        } else{
+            return service('settings')->get($setting_name);
+        }
+    }
+}
