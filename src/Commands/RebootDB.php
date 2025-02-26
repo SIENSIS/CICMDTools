@@ -81,7 +81,13 @@ class RebootDB extends BaseCommand
             $migrate = CLI::prompt('Would you like to migrate DB?', ['y', 'n']);
 
             if ($migrate == 'y') {
-                echo command('migrate');
+
+                $migrate_all = CLI::prompt('Migrate all?', ['n', 'y']);
+                if ($migrate_all == 'y') {
+                    echo command('migrate -all');
+                } else {
+                    echo command('migrate');
+                }
             }
         }
 
