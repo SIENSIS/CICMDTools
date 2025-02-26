@@ -25,3 +25,22 @@ if (!function_exists('obscureMiddle')) {
         return $obscuredPart . $visiblePart . "*";
     }
 }
+
+if (!function_exists('generateStringID')) {
+    function generateStringID($prefix = '', $suffix = '',$split = 0,$entropy=false) {
+
+        if (!empty($prefix)) {
+            $id = uniqid($prefix, $entropy);
+        } else {
+            $id = uniqid('', $entropy);
+        }
+        $id = $id.$suffix;
+
+        if ($split > 0) {
+            $id = implode('-', str_split($id, $split));
+        } 
+        $id = strtoupper($id);
+        
+        return $id;
+    }
+}

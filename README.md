@@ -15,3 +15,4 @@
 
 - __setting__: hash_setting, crypt_setting to store or to get a configuration attribute from Codeigniter4/Settings package
 - __text__: Added startsWith, endsWith, obscureMiddle
+- __generateStringID__: Generate an string ID based on time uniqueid function. This helper permits: prefix, suffix, split characters with '-' and more_entropy. By default prefix='', suffix='', split=0 (disabled), more_entropy=false
