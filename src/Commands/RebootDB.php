@@ -96,7 +96,7 @@ class RebootDB extends BaseCommand
             $fillData = CLI::prompt('Would you like to populate data. Execute seeder install?', ['y', 'n']);
             
             if ($migrate == 'y') 
-            echo command('db:seed install');
+            echo command('db:seed Install');
         } else {
             CLI::newLine();
             CLI::write(CLI::color('Install seeder not exists.', 'yellow'));
