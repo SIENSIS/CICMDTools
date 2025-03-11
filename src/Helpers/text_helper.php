@@ -64,7 +64,7 @@ if (!function_exists('decryptb64')) {
 if (!function_exists('hmacb64')) {
     function hmacb64($string) {
         $encryption = config('encryption');
-        $hashValue =hash_hmac('sha512', $string, $encryption->key);
+        $hmacValue =hash_hmac('sha512', $string, $encryption->key);
         return base64_encode($hmacValue);
     }
 }
