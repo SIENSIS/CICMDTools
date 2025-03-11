@@ -44,3 +44,27 @@ if (!function_exists('generateStringID')) {
         return $id;
     }
 }
+
+if (!function_exists('cryptb64')) {
+    function cryptb64($string) {
+        $encrypter = service('encrypter');
+        $cryptValue = $encrypter->encrypt($string);
+        return base64_encode($cryptValue);
+    }
+}
+
+if (!function_exists('decryptb64')) {
+    function decryptb64($string) {
+        $encrypter = service('encrypter');
+        $decryptValue = base64_decode($string);
+        return $encrypter->decrypt($decryptValue);
+    }
+}
+
+if (!function_exists('hmacb64')) {
+    function hmacb64($string) {
+        $encryption = config('encryption');
+        $hashValue =hash_hmac('sha512', $string, $encryption->key);
+        return base64_encode($hmacValue);
+    }
+}

@@ -56,11 +56,11 @@ class Crypt extends BaseCommand
      */
     public function run(array $params)
     {
+        helper('text');
+
         $textToCrypt = CLI::prompt('Text to crypt', null, 'required');
 
-        $encrypter = service('encrypter');
-
-        $ciphertext = base64_encode($encrypter->encrypt($textToCrypt));
+        $ciphertext= cryptb64($textToCrypt);
 
         CLI::newLine();
         CLI::write('Ciphertext: ' . $ciphertext);

@@ -56,11 +56,10 @@ class Decrypt extends BaseCommand
      */
     public function run(array $params)
     {
+        helper('text');
         $textToDecrypt = CLI::prompt('Text to decrypt', null, 'required');
 
-        $encrypter = service('encrypter');
-
-        $plainText = $encrypter->decrypt(base64_decode($textToDecrypt));
+        $plainText=decryptb64($textToDecrypt);
 
         CLI::newLine();
         CLI::write('Plain text: ' . $plainText);
