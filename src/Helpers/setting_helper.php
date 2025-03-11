@@ -23,7 +23,7 @@ if (!function_exists('hash_setting')) {
         if($value){   // if value is provided, crypt the value and save it to the setting
             // $encryption = config('encryption');
             // $hashValue =hash_hmac('sha512', $value, $encryption->key);
-            hmacb64($value); // function provided by text helper
+            $hashValue=hmacb64($value); // function provided by text helper
             service('settings')->set($setting_name, $hashValue);
         } else{
             return service('settings')->get($setting_name);
