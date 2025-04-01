@@ -40,7 +40,7 @@ class RebootDB extends BaseCommand
      *
      * @var array
      */
-    protected $arguments = [];   
+    protected $arguments = [];
 
     /**
      * The Command's Options
@@ -64,6 +64,8 @@ class RebootDB extends BaseCommand
         if (CLI::getOption('default')) {
             $mode = 1;
         } elseif (CLI::getOption('all')) {
+            $mode = 2;
+        } elseif (count($params) > 0 && $params[0] == 'nonui') { // Param to FIX CI4 error when call command from controller
             $mode = 2;
         }
 
@@ -93,6 +95,7 @@ class RebootDB extends BaseCommand
         if ($howToRemove == 't') {
 
             CLI::newLine();
+
             if ($mode == 0) {
                 $migrate = CLI::prompt('Would you like to migrate DB?', ['y', 'n']);
             } else {
@@ -125,20 +128,26 @@ class RebootDB extends BaseCommand
             else
                 $fillData = 'y';
 
-            if ($fillData == 'y')
+            if ($fillData == 'y') {
+                CLI::write(CLI::color("Running seeder install to DB...", 'green'));
                 echo command('db:seed Install');
+                CLI::write(CLI::color("Seeder install executed.", 'green'));
+                CLI::newLine();
+            }
         } else {
             CLI::newLine();
-            CLI::write(CLI::color('Install seeder not exists.', 'yellow'));
 
-            CLI::newLine();
             if ($mode == 0)
                 $executeSeeders = CLI::prompt('Would you like to execute seeders?', ['y', 'n']);
             else
                 $executeSeeders = 'y';
 
-            if ($executeSeeders == 'y')
+            if ($executeSeeders == 'y') {
+                CLI::write(CLI::color("Running seeders to DB...", 'green'));
                 $this->executeSeeders();
+                CLI::write(CLI::color("Seeders executed.", 'green'));
+                CLI::newLine();
+            }
         }
     }
 
