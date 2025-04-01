@@ -40,14 +40,17 @@ class RebootDB extends BaseCommand
      *
      * @var array
      */
-    protected $arguments = [];
+    protected $arguments = [];   
 
     /**
      * The Command's Options
      *
      * @var array
      */
-    protected $options = [];
+    protected $options = [
+        '--default' => 'Mode non interactive with all questions by default',
+        '--all'     => 'Mode non interactive with all questions by default and migrate all',
+    ];
 
     /**
      * Actually execute a command.
@@ -56,8 +59,20 @@ class RebootDB extends BaseCommand
      */
     public function run(array $params)
     {
-        $howToRemove = CLI::prompt('drop Tables or remove Data?', ['t', 'D']);
-        CLI::newLine();
+        $mode = 0; // 0=interactive 1=default questions 2=default questions and migrate all
+
+        if (CLI::getOption('default')) {
+            $mode = 1;
+        } elseif (CLI::getOption('all')) {
+            $mode = 2;
+        }
+
+        if ($mode == 0) {
+            $howToRemove = CLI::prompt('drop Tables or remove Data?', ['t', 'D']);
+            CLI::newLine();
+        } else {
+            $howToRemove = 't';
+        }
 
         $db = \Config\Database::connect();
         $forge = \Config\Database::forge();
@@ -78,11 +93,22 @@ class RebootDB extends BaseCommand
         if ($howToRemove == 't') {
 
             CLI::newLine();
-            $migrate = CLI::prompt('Would you like to migrate DB?', ['y', 'n']);
+            if ($mode == 0) {
+                $migrate = CLI::prompt('Would you like to migrate DB?', ['y', 'n']);
+            } else {
+                $migrate = 'y';
+            }
 
             if ($migrate == 'y') {
 
-                $migrate_all = CLI::prompt('Migrate all?', ['n', 'y']);
+                if ($mode == 0) {
+                    $migrate_all = CLI::prompt('Migrate all?', ['n', 'y']);
+                } elseif ($mode == 2) {
+                    $migrate_all = 'y';
+                } else {
+                    $migrate_all = 'n';
+                }
+
                 if ($migrate_all == 'y') {
                     echo command('migrate -all');
                 } else {
@@ -91,26 +117,34 @@ class RebootDB extends BaseCommand
             }
         }
 
-        if (class_exists('App\Database\Seeds\Install')){
+        if (class_exists('App\Database\Seeds\Install')) {
             CLI::newLine();
-            $fillData = CLI::prompt('Would you like to populate data. Execute seeder install?', ['y', 'n']);
-            
-            if ($migrate == 'y') 
-            echo command('db:seed Install');
+
+            if ($mode == 0)
+                $fillData = CLI::prompt('Would you like to populate data. Execute seeder install?', ['y', 'n']);
+            else
+                $fillData = 'y';
+
+            if ($fillData == 'y')
+                echo command('db:seed Install');
         } else {
             CLI::newLine();
             CLI::write(CLI::color('Install seeder not exists.', 'yellow'));
-            
+
             CLI::newLine();
-            $executeSeeders = CLI::prompt('Would you like to execute seeders?', ['y', 'n']);
-            if ($executeSeeders == 'y') 
+            if ($mode == 0)
+                $executeSeeders = CLI::prompt('Would you like to execute seeders?', ['y', 'n']);
+            else
+                $executeSeeders = 'y';
+
+            if ($executeSeeders == 'y')
                 $this->executeSeeders();
         }
     }
 
     public function executeSeeders()
     {
-        
+
         $files = new \CodeIgniter\Files\FileCollection();
 
         $files->addDirectory(APPPATH . 'Database/Seeds');
@@ -118,10 +152,9 @@ class RebootDB extends BaseCommand
 
 
         foreach ($files as $file) {
-            $seeder=$file->getBasename('.' . $file->getExtension());
-            if ($seeder!="Install")
-                echo command('db:seed ' . $seeder );
+            $seeder = $file->getBasename('.' . $file->getExtension());
+            if ($seeder != "Install")
+                echo command('db:seed ' . $seeder);
         }
     }
-
 }
