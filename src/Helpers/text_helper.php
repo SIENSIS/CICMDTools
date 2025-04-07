@@ -47,6 +47,9 @@ if (!function_exists('generateStringID')) {
 
 if (!function_exists('cryptb64')) {
     function cryptb64($string) {
+        if (empty($string)) {
+            return null;
+        }
         $encrypter = service('encrypter');
         $cryptValue = $encrypter->encrypt($string);
         return base64_encode($cryptValue);
@@ -55,6 +58,9 @@ if (!function_exists('cryptb64')) {
 
 if (!function_exists('decryptb64')) {
     function decryptb64($string) {
+        if (empty($string)) {
+            return null;
+        }
         $encrypter = service('encrypter');
         $decryptValue = base64_decode($string);
         return $encrypter->decrypt($decryptValue);
@@ -63,6 +69,9 @@ if (!function_exists('decryptb64')) {
 
 if (!function_exists('hmacb64')) {
     function hmacb64($string) {
+        if (empty($string)) {
+            return null;
+        }
         $encryption = config('encryption');
         $hmacValue =hash_hmac('sha512', $string, $encryption->key);
         return base64_encode($hmacValue);
