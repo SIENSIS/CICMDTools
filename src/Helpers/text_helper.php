@@ -55,15 +55,20 @@ if (!function_exists('cryptb64')) {
         return base64_encode($cryptValue);
     }
 }
-
 if (!function_exists('decryptb64')) {
-    function decryptb64($string) {
+    function decryptb64($string)
+    {
         if (empty($string)) {
             return null;
         }
         $encrypter = service('encrypter');
-        $decryptValue = base64_decode($string);
-        return $encrypter->decrypt($decryptValue);
+        try {
+            $decryptValue = base64_decode($string);
+            $r = $encrypter->decrypt($decryptValue);
+            return $r;
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 }
 
